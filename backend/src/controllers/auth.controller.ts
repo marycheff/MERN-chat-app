@@ -33,6 +33,7 @@ export const signup = async (req: Request, res: Response) => {
                 fullName: newUser.fullName,
                 email: newUser.email,
                 // profilePic: newUser.profilePic,
+                
                 // message: "Успешная регистрация",
             })
         } else {
