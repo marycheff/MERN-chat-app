@@ -1,7 +1,7 @@
 import User from "@/models/user.model"
-import { IUser } from "@/types/user.types"
+import { JwtPayload } from "@/types/jwt.types"
 import { NextFunction, Request, Response } from "express"
-import jwt, { JwtPayload } from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 export const protectRoute = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -24,8 +24,7 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
             res.status(404).json({ message: "Пользователь не найден" })
             return
         }
-        // Object.assign(req, { user });
-        ;(req as any).user = user
+        req.user = user
 
         next()
     } catch (error) {

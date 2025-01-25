@@ -50,6 +50,7 @@ export const signup = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Ошибка сервера" })
     }
 }
+
 export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body
     try {
@@ -79,6 +80,7 @@ export const login = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Ошибка сервера" })
     }
 }
+
 export const logout = (req: Request, res: Response) => {
     try {
         res.cookie("jwt", "", { maxAge: 0 })
@@ -96,7 +98,7 @@ export const logout = (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
     try {
         const { profilePic } = req.body
-        const userId = (req as unknown as { user: IUser }).user?._id
+        const userId = req.user?._id
         if (!profilePic) {
             res.status(400).json({ message: "Картинка профиля не предоставлена" })
             return
@@ -120,7 +122,7 @@ export const updateProfile = async (req: Request, res: Response) => {
 
 export const checkAuth = (req: Request, res: Response) => {
     try {
-        res.status(200).json((req as any).user)
+        res.status(200).json(req.user)
     } catch (error) {
         if (error instanceof Error) {
             console.log("Ошибка в контроллере checkAuth", error.message)
