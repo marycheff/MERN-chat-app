@@ -1,4 +1,5 @@
-import mongoose from "mongoose"
+import { IUser } from "@/types/user.types"
+import mongoose, { model } from "mongoose"
 
 const userSchema = new mongoose.Schema(
     {
@@ -16,12 +17,13 @@ const userSchema = new mongoose.Schema(
             required: true,
             minlength: 6,
         },
-        // profilePic:{
-        //     type
-        // }
+        profilePic: {
+            type: String,
+            default: "",
+        },
     },
     { timestamps: true }
 )
 
-const User = mongoose.model("User", userSchema)
+const User = model<IUser>("User", userSchema)
 export default User
