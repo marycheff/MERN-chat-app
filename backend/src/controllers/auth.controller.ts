@@ -117,3 +117,16 @@ export const updateProfile = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Ошибка сервера" })
     }
 }
+
+export const checkAuth = (req: Request, res: Response) => {
+    try {
+        res.status(200).json((req as any).user)
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log("Ошибка в контроллере checkAuth", error.message)
+        } else {
+            console.log("Неизвестная ошибка в контроллере checkAuth", error)
+        }
+        res.status(500).json({ message: "Ошибка сервера" })
+    }
+}
