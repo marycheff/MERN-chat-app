@@ -1,18 +1,20 @@
-import express from "express"
-import cookieParser from "cookie-parser"
-import cors from "cors"
+import config from "@/config"
+import { connectDB } from "@/lib/db"
 import authRoutes from "@/routes/auth.route"
 import messageRoutes from "@/routes/message.route"
-import { connectDB } from "@/lib/db"
-import config from "@/config"
+import cookieParser from "cookie-parser"
+import cors from "cors"
+import express from "express"
 
 const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
+console.log(config.FRONTEND_URL)
+const url = config.FRONTEND_URL as String
 app.use(
     cors({
-        origin: config.FRONTEND_URL,
+        origin: config.FRONTEND_URL as string,
         credentials: true,
     })
 )
@@ -22,6 +24,5 @@ app.use("/api/message", messageRoutes)
 
 app.listen(config.PORT, () => {
     console.log(`✓ Сервер запущен. Порт ${config.PORT}`)
-    console.log(`✓ Режим: ${config.NODE_ENV}`)
     connectDB()
 })

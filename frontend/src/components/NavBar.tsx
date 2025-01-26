@@ -1,11 +1,9 @@
-import React from 'react';
+import { useAuthStore } from "@/store/useAuthStore"
 
 const NavBar = () => {
-  return (
-    <div>
-      NavBar Component
-    </div>
-  );
-};
+    const { authUser } = useAuthStore()
 
-export default NavBar;
+    return <div>NavBar Component</div>
+}
+
+export default NavBar
