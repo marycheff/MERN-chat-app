@@ -1,3 +1,4 @@
+import config from "@/config"
 import User from "@/models/user.model"
 import { JwtPayload } from "@/types/jwt.types"
 import { NextFunction, Request, Response } from "express"
@@ -11,8 +12,8 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
             return
         }
 
-        if (!process.env.JWT_SECRET) throw new Error("Нет JWT_SECRET в .env")
-        const decoded = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload
+
+        const decoded = jwt.verify(token, config.JWT_SECRET!) as JwtPayload
 
         if (!decoded) {
             res.status(401).json({ message: "Не авторизован. Токен не валиден" })

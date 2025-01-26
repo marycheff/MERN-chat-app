@@ -1,9 +1,10 @@
+
+import config from "@/config"
 import { Response } from "express"
 import jwt from "jsonwebtoken"
 import { Types } from "mongoose"
 export const generateToken = (userId: Types.ObjectId, res: Response): string => {
-    if (!process.env.JWT_SECRET) throw new Error("Нет значения JWT_SECRET в .env")
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId }, config.JWT_SECRET!, {
         expiresIn: "7d",
     })
     res.cookie("jwt", token, {
