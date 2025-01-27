@@ -5,4 +5,5 @@ export interface IUser {
     profilePic?: string
     createdAt?: Date
     updatedAt?: Date
+    __v: number
 }

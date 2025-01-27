@@ -1,3 +1,4 @@
+import { LoginFormData, SignupFormData } from "@/types/form.types"
 import { IUser } from "@/types/user.types"
 
 export interface AuthState {
@@ -8,5 +9,7 @@ export interface AuthState {
     isCheckingAuth: boolean
 
     checkAuth: () => Promise<void>
-    signup: () => Promise<void>
+    signup: (data: SignupFormData) => Promise<void>
+    login: (data: LoginFormData) => Promise<void>
+    logout: () => Promise<void>
 }

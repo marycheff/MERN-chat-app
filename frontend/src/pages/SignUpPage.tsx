@@ -1,7 +1,9 @@
+import AuthImagePattern from "@/components/AuthImagePattern"
 import { useAuthStore } from "@/store/useAuthStore"
 import { SignupFormData } from "@/types/form.types"
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react"
 import { FormEvent, useState } from "react"
+import toast from "react-hot-toast"
 import { Link } from "react-router-dom"
 const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -13,24 +15,55 @@ const SignUpPage = () => {
 
     const { signup, isSigningUp } = useAuthStore()
 
-    const validateForm = () => {}
+    const validateForm = () => {
+        if (!formData.fullName.trim()) {
+            toast.error('Поле "Имя" не заполнено')
+            return false
+        }
+        if (!formData.email.trim()) {
+            toast.error('Поле "Email" не заполнено')
+            return false
+        }
+        if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            toast.error("Неверная форма email")
+            return false
+        }
+        if (!formData.password.trim()) {
+            toast.error('Поле "Пароль" не заполнено')
+            return false
+        }
+        if (formData.password.length < 6) {
+            toast.error("Пароль должен состоять минимум из 6 символов")
+            return false
+        }
+        return true
+    }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        const success = validateForm()
+        if (success) {
+            signup(formData)
+        }
     }
     return (
-        <div className="min-h-screen grid lg:grid cols-2">
+        <div className="min-h-screen grid lg:grid-cols-2">
+            {/* ЛЕВАЯ СТОРОНА */}
             <div className="flex flex-col justify-center items-center p-6 sm:p-12">
                 <div className="w-full max-w-md space-y-8">
+                    {/* LOGO */}
                     <div className="text-center mb-8">
                         <div className="flex flex-col items-center gap-2 group">
-                            <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                            <div
+                                className="size-12 rounded-xl bg-primary/10 flex items-center justify-center 
+              group-hover:bg-primary/20 transition-colors">
                                 <MessageSquare className="size-6 text-primary" />
                             </div>
                             <h1 className="text-2xl font-bold mt-2">Создать аккаунт</h1>
-                            <p className="text-base-content/60">Начните с вашей бесплатной учетной записью</p>
+                            <p className="text-base-content/60">Начните работу с вашей бесплатной учетной записью</p>
                         </div>
                     </div>
+
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="form-control">
                             <label className="label">
@@ -49,6 +82,7 @@ const SignUpPage = () => {
                                 />
                             </div>
                         </div>
+
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Email</span>
@@ -58,14 +92,15 @@ const SignUpPage = () => {
                                     <Mail className="size-5 text-base-content/40" />
                                 </div>
                                 <input
-                                    type="text"
+                                    type="email"
                                     className={`input input-bordered w-full pl-10`}
-                                    placeholder="example@example.com"
+                                    placeholder="you@example.com"
                                     value={formData.email}
                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                                 />
                             </div>
                         </div>
+
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text font-medium">Пароль</span>
@@ -93,6 +128,7 @@ const SignUpPage = () => {
                                 </button>
                             </div>
                         </div>
+
                         <button type="submit" className="btn btn-primary w-full" disabled={isSigningUp}>
                             {isSigningUp ? (
                                 <>
@@ -109,14 +145,20 @@ const SignUpPage = () => {
                         <p className="text-base-content/60">
                             Уже зарегистрированы?{" "}
                             <Link to="/login" className="link link-primary">
-                                Войти
+                                Вход
                             </Link>
                         </p>
                     </div>
                 </div>
             </div>
+
+            {/* ПРАВАЯ СТОРОНА */}
+
+            <AuthImagePattern
+                title="Присоединяйтесь к нашему сообществу"
+                subtitle="Общайтесь с друзьями, делитесь впечатлениями и оставайтесь на связи со своими близкими."
+            />
         </div>
     )
 }
-
 export default SignUpPage

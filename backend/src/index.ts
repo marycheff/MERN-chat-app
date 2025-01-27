@@ -10,8 +10,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
-console.log(config.FRONTEND_URL)
-const url = config.FRONTEND_URL as String
+
 app.use(
     cors({
         origin: config.FRONTEND_URL as string,
