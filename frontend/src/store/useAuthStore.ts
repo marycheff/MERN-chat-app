@@ -1,7 +1,8 @@
 import { axiosInstance } from "@/lib/axios"
 import { AuthState } from "@/types/auth.types"
 import { LoginFormData, SignupFormData } from "@/types/form.types"
-import { IUser } from "@/types/user.types"
+
+import { IUser, ProfileUpdate } from "@/types/user.types"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
 import { create } from "zustand"
@@ -69,6 +70,24 @@ export const useAuthStore = create<AuthState>(set => ({
             } else {
                 toast.error("Неизвестная ошибка, перезагрузите страницу")
             }
+        }
+    },
+
+    updateProfile: async (data: ProfileUpdate) => {
+        set({ isUpdatingProfile: true })
+
+        try {
+            const response = await axiosInstance.put("auth/update-profile", data)
+            set({ authUser: response.data })
+            toast.success("Профиль успешно обновлен")
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                toast.error(error.response?.data?.message || "Неизвестная ошибка")
+            } else {
+                toast.error("Неизвестная ошибка, перезагрузите страницу")
+            }
+        } finally {
+            set({ isUpdatingProfile: false })
         }
     },
 }))

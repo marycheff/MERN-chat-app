@@ -1,5 +1,6 @@
 import { LoginFormData, SignupFormData } from "@/types/form.types"
-import { IUser } from "@/types/user.types"
+
+import { IUser, ProfileUpdate } from "@/types/user.types"
 
 export interface AuthState {
     authUser: IUser | null
@@ -12,4 +13,5 @@ export interface AuthState {
     signup: (data: SignupFormData) => Promise<void>
     login: (data: LoginFormData) => Promise<void>
     logout: () => Promise<void>
+    updateProfile: (data: ProfileUpdate) => Promise<void>
 }

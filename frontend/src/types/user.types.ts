@@ -7,3 +7,6 @@ export interface IUser {
     updatedAt?: Date
     __v: number
 }
+export type ProfileUpdate = {
+    profilePic: string | ArrayBuffer | null
+}
