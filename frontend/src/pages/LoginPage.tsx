@@ -90,7 +90,7 @@ const LoginPage = () => {
                                     Загрузка...
                                 </>
                             ) : (
-                                "Sign in"
+                                "Войти"
                             )}
                         </button>
                     </form>

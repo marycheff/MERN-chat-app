@@ -136,7 +136,7 @@ const SignUpPage = () => {
                                     Загрузка...
                                 </>
                             ) : (
-                                "Create Account"
+                                "Зарегистрироваться"
                             )}
                         </button>
                     </form>
@@ -145,7 +145,7 @@ const SignUpPage = () => {
                         <p className="text-base-content/60">
                             Уже зарегистрированы?{" "}
                             <Link to="/login" className="link link-primary">
-                                Вход
+                                Войти
                             </Link>
                         </p>
                     </div>
