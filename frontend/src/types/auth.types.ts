@@ -8,6 +8,7 @@ export interface AuthState {
     isLoggingIn: boolean
     isUpdatingProfile: boolean
     isCheckingAuth: boolean
+    onlineUsers: IUser[]
 
     checkAuth: () => Promise<void>
     signup: (data: SignupFormData) => Promise<void>
