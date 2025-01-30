@@ -1,7 +1,7 @@
 import { Types, Document } from "mongoose"
 
 export interface IMessage extends Document {
-    senderId: Types.ObjectId 
+    senderId?: Types.ObjectId 
     receiverId: Types.ObjectId 
     text?: string 
     image?: string 
