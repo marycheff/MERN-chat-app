@@ -21,4 +21,6 @@ export interface ChatState {
     getMessages: (userId: IUser["_id"]) => Promise<void>
     setSelectedUser: (selectedUser: IUser | null) => Promise<void>
     sendMessage: (data: IMessage) => Promise<void>
+    subscribeToMessages: () => void
+    unsubscribeFromMessages: () => void
 }

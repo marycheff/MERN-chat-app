@@ -1,4 +1,5 @@
 import config from "@/config"
+import { IUser } from "@/types/user.types"
 import express from "express"
 import http from "http"
 import { Server } from "socket.io"
@@ -10,6 +11,10 @@ const io = new Server(server, {
         origin: [config.FRONTEND_URL as string],
     },
 })
+
+export const getReceiverSocketId = (userId: IUser["id"]) => {
+    return userSocketMap[userId]
+}
 
 const userSocketMap: { [key: string]: string } = {}
 
