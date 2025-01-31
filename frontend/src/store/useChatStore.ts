@@ -18,7 +18,6 @@ export const useChatStore = create<ChatState>((set, get) => ({
         try {
             const response = await axiosInstance.get<IUser[]>("/message/users")
             set({ users: response.data })
-            console.log(response.data)
         } catch (error) {
             if (error instanceof AxiosError) {
                 toast.error(error.response?.data?.message || "Неизвестная ошибка")
@@ -46,7 +45,6 @@ export const useChatStore = create<ChatState>((set, get) => ({
     },
     setSelectedUser: async (selectedUser: IUser | null) => {
         set({ selectedUser })
-        console.log(selectedUser)
     },
 
     sendMessage: async (data: IMessage) => {
